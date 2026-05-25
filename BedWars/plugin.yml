@@ -1,0 +1,12 @@
+name: BedWars
+main: net.xtrafrancyz.BedWars.BedWars
+version: 0.2
+author: xtrafrancyz
+website: http://xtrafrancyz.net
+
+depend: [Texteria, VimeNetwork, GameReloader]
+
+commands:
+  bedwars:
+    aliases: [bw]
+  stats:

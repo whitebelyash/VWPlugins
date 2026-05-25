@@ -1,0 +1,87 @@
+package net.xtrafrancyz.VimeNetwork.api.util;
+
+import net.minecraft.server.v1_6_R3.EntityPlayer;
+import net.minecraft.server.v1_6_R3.MinecraftServer;
+import net.minecraft.server.v1_6_R3.Packet63WorldParticles;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.util.NumberConversions;
+
+public enum Particles {
+   ANGRY_VILLAGER("angryVillager"),
+   BUBBLE("bubble"),
+   CLOUD("cloud"),
+   CRIT("crit"),
+   DEPTH_SUSPEND("depthsuspend"),
+   DRIP_LAVA("dripLava"),
+   DRIP_WATER("dripWater"),
+   ENCHANTMENT_TABLE("enchantmenttable"),
+   EXPLODE("explode"),
+   FIREWORKS_SPARK("fireworksSpark"),
+   FLAME("flame"),
+   FOOTSTEP("footstep"),
+   HAPPY_VILLAGER("happyVillager"),
+   HEART("heart"),
+   HUGE_EXPLOSION("hugeexplosion"),
+   INSTANT_SPELL("instantSpell"),
+   LARGE_EXPLODE("largeexplode"),
+   LARGE_SMOKE("largesmoke"),
+   LAVA("lava"),
+   MAGIC_CRIT("magicCrit"),
+   MOB_SPELL_AMBIENT("mobSpellAmbient"),
+   MOB_SPELL("mobSpell"),
+   NOTE("note"),
+   PORTAL("portal"),
+   RED_DUST("reddust"),
+   SLIME("slime"),
+   SMOKE("smoke"),
+   SNOW_SHOVEL("snowshovel"),
+   SNOWBALL_POOF("snowballpoof"),
+   SPELL("spell"),
+   SPLASH("splash"),
+   SUSPENDED("suspended"),
+   WITCH_MAGIC("witchMagic"),
+   TOWNAURA("townaura");
+
+   public static final int DEFAULT_RADIUS = 20;
+   private final String id;
+
+   private Particles(String id) {
+      this.id = id;
+   }
+
+   public void play(float x, float y, float z, float xOffset, float yOffset, float zOffset, float effectSpeed, int amountOfParticles, Player... players) {
+      play(this.id, x, y, z, xOffset, yOffset, zOffset, effectSpeed, amountOfParticles, players);
+   }
+
+   public void play(Location loc, float xOffset, float yOffset, float zOffset, float effectSpeed, int amountOfParticles, Player... players) {
+      play(this.id, (float)loc.getX(), (float)loc.getY(), (float)loc.getZ(), xOffset, yOffset, zOffset, effectSpeed, amountOfParticles, players);
+   }
+
+   public static void playIconCrack(int id, float x, float y, float z, float xOffset, float yOffset, float zOffset, float effectSpeed, int amountOfParticles, Player... players) {
+      play("iconcrack_" + id, x, y, z, xOffset, yOffset, zOffset, effectSpeed, amountOfParticles, players);
+   }
+
+   public static void playTileCrack(int id, int meta, float x, float y, float z, float xOffset, float yOffset, float zOffset, float effectSpeed, int amountOfParticles, Player... players) {
+      play("tilecrack_" + id + "_" + meta, x, y, z, xOffset, yOffset, zOffset, effectSpeed, amountOfParticles, players);
+   }
+
+   public static void play(String particle, float x, float y, float z, float xOffset, float yOffset, float zOffset, float effectSpeed, int amountOfParticles, Player... players) {
+      Packet63WorldParticles packet = new Packet63WorldParticles(particle, x, y, z, xOffset, yOffset, zOffset, effectSpeed, amountOfParticles);
+      if (players.length == 0) {
+         int radius = 400;
+
+         for(EntityPlayer player : MinecraftServer.getServer().getPlayerList().players) {
+            double distanceSquared = NumberConversions.square(player.locX - (double)x) + NumberConversions.square(player.locY - (double)y) + NumberConversions.square(player.locZ - (double)z);
+            if (distanceSquared < (double)radius) {
+               player.playerConnection.sendPacket(packet);
+            }
+         }
+      } else {
+         for(Player player : players) {
+            U.sendPacket(player, packet);
+         }
+      }
+
+   }
+}

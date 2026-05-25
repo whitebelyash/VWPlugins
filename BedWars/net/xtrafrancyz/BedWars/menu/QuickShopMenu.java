@@ -1,0 +1,36 @@
+package net.xtrafrancyz.BedWars.menu;
+
+import net.xtrafrancyz.BedWars.game.usables.BridgeBuilder;
+import net.xtrafrancyz.BedWars.game.usables.ItemPackage;
+import net.xtrafrancyz.BedWars.game.usables.RescuePlatform;
+import net.xtrafrancyz.BedWars.game.usables.Trap;
+import net.xtrafrancyz.BedWars.game.usables.WarpPowder;
+import net.xtrafrancyz.VimeNetwork.api.util.Items;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.Potion;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
+
+public class QuickShopMenu extends ShopMenu {
+   protected void fill() {
+      this.shops.add((new ShopMenu.Shop(Items.name(new ItemStack(Material.SANDSTONE, 1, (short)2), "&bБлоки", new String[0]))).add(this.bronze(1), new ItemStack(Material.SANDSTONE, 2, (short)2)).add(this.bronze(3), new ItemStack(Material.SANDSTONE_STAIRS, 2)).add(this.bronze(7), new ItemStack(Material.ENDER_STONE)).add(this.iron(3), new ItemStack(Material.IRON_BLOCK)).add(this.bronze(15), new ItemStack(Material.GLOWSTONE, 4)).add(this.bronze(4), new ItemStack(Material.GLASS)));
+      this.shops.add((new ShopMenu.ArmorShop(Items.name(Material.IRON_CHESTPLATE, "&bБроня", new String[0]))).add(this.bronze(1), Items.enchant(new ItemStack(Material.LEATHER_HELMET), new Items.Ench[]{new Items.Ench(Enchantment.PROTECTION_ENVIRONMENTAL, 1), new Items.Ench(Enchantment.DURABILITY, 1)})).add(this.bronze(1), Items.enchant(new ItemStack(Material.LEATHER_LEGGINGS), new Items.Ench[]{new Items.Ench(Enchantment.PROTECTION_ENVIRONMENTAL, 1), new Items.Ench(Enchantment.DURABILITY, 1)})).add(this.bronze(1), Items.enchant(new ItemStack(Material.LEATHER_BOOTS), new Items.Ench[]{new Items.Ench(Enchantment.PROTECTION_ENVIRONMENTAL, 1), new Items.Ench(Enchantment.DURABILITY, 1)})).add(this.iron(1), Items.enchant(Items.name(Material.CHAINMAIL_CHESTPLATE, "&bКольчуга уровень 1", new String[0]), new Items.Ench[]{new Items.Ench(Enchantment.PROTECTION_ENVIRONMENTAL, 1), new Items.Ench(Enchantment.DURABILITY, 1)})).add(this.iron(3), Items.enchant(Items.name(Material.CHAINMAIL_CHESTPLATE, "&bКольчуга уровень 2", new String[0]), new Items.Ench[]{new Items.Ench(Enchantment.PROTECTION_ENVIRONMENTAL, 2), new Items.Ench(Enchantment.DURABILITY, 1)})).add(this.iron(7), Items.enchant(Items.name(Material.CHAINMAIL_CHESTPLATE, "&bКольчуга уровень 3", new String[0]), new Items.Ench[]{new Items.Ench(Enchantment.PROTECTION_ENVIRONMENTAL, 3), new Items.Ench(Enchantment.DURABILITY, 1)})));
+      this.shops.add((new ShopMenu.Shop(Items.name(Material.GOLD_PICKAXE, "&bКирки", new String[0]))).add(this.bronze(4), Items.enchant(new ItemStack(Material.WOOD_PICKAXE), new Items.Ench[]{new Items.Ench(Enchantment.DIG_SPEED, 3), new Items.Ench(Enchantment.DURABILITY, 1)})).add(this.iron(2), Items.enchant(new ItemStack(Material.STONE_PICKAXE), new Items.Ench[]{new Items.Ench(Enchantment.DIG_SPEED, 4), new Items.Ench(Enchantment.DURABILITY, 1)})).add(this.gold(1), Items.enchant(new ItemStack(Material.IRON_PICKAXE), new Items.Ench[]{new Items.Ench(Enchantment.DIG_SPEED, 5), new Items.Ench(Enchantment.DURABILITY, 1)})));
+      this.shops.add((new ShopMenu.Shop(Items.name(Material.GOLD_SWORD, "&bМечи", new String[0]))).add(this.bronze(8), Items.enchant(Items.name(Material.STICK, "&fПалка на отдачу", new String[0]), new Items.Ench[]{new Items.Ench(Enchantment.KNOCKBACK, 1)})).add(this.iron(1), Items.enchant(Items.name(Material.GOLD_SWORD, "&fЗолотой меч уровень 1", new String[0]), new Items.Ench[]{new Items.Ench(Enchantment.DAMAGE_ALL, 1), new Items.Ench(Enchantment.DURABILITY, 1)})).add(this.iron(3), Items.enchant(Items.name(Material.GOLD_SWORD, "&fЗолотой меч уровень 2", new String[0]), new Items.Ench[]{new Items.Ench(Enchantment.DAMAGE_ALL, 2), new Items.Ench(Enchantment.DURABILITY, 1)})).add(this.gold(5), Items.enchant(Items.name(Material.IRON_SWORD, "&fЭкскалибур", new String[0]), new Items.Ench[]{new Items.Ench(Enchantment.DAMAGE_ALL, 2), new Items.Ench(Enchantment.DURABILITY, 1), new Items.Ench(Enchantment.KNOCKBACK, 1)})).add(this.gold(13), Items.enchant(Items.name(Material.DIAMOND_SWORD, "&fАлмеч", new String[0]), new Items.Ench[]{new Items.Ench(Enchantment.DAMAGE_ALL, 2), new Items.Ench(Enchantment.DURABILITY, 1), new Items.Ench(Enchantment.KNOCKBACK, 1)})));
+      this.shops.add((new ShopMenu.Shop(Items.name(Material.BREAD, "&bЕда", new String[0]))).add(this.bronze(2), Items.name(Material.GRILLED_PORK, "&fМясо единорога", new String[0])).add(this.gold(2), new ItemStack(Material.GOLDEN_APPLE)));
+      this.shops.add((new ShopMenu.Shop(Items.name(Material.CHEST, "&bСундуки", new String[0]))).add(this.iron(1), Items.name(Material.CHEST, "&aСундук", new String[0])).add(this.gold(1), Items.name(Material.ENDER_CHEST, "&aКомандный сундук", new String[0])));
+      ItemStack invisPotion = (new Potion(PotionType.INVISIBILITY, 1)).toItemStack(1);
+      PotionMeta meta = (PotionMeta)invisPotion.getItemMeta();
+      meta.addCustomEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 300, 0), true);
+      invisPotion.setItemMeta(meta);
+      this.shops.add((new ShopMenu.Shop(Items.name(Material.POTION, "&bЗелья", new String[0]))).add(this.iron(3), Items.name((new Potion(PotionType.INSTANT_HEAL, 1)).toItemStack(1), "&eХилка уровень 1", new String[0])).add(this.iron(5), Items.name((new Potion(PotionType.INSTANT_HEAL, 2)).toItemStack(1), "&eХилка уровень 2", new String[0])).add(this.iron(7), Items.name((new Potion(PotionType.SPEED, 1)).toItemStack(1), "&eСкорость", new String[0])).add(this.gold(10), Items.name((new Potion(PotionType.STRENGTH, 1)).toItemStack(1), "&eСила", new String[0])).add(this.iron(36), invisPotion));
+      this.shops.add((new ShopMenu.Shop(Items.name(Material.TNT, "&bСпециальное", new String[0]))).add(this.bronze(1), new ItemStack(Material.LADDER)).add(this.bronze(16), new ItemStack(Material.WEB)).add(this.iron(5), new ItemStack(Material.FISHING_ROD)).add(this.iron(7), new ItemStack(Material.FLINT_AND_STEEL)).add(this.gold(3), new ItemStack(Material.TNT)).add(this.gold(13), new ItemStack(Material.ENDER_PEARL)));
+      this.shops.add((new ShopMenu.Shop(Items.name(Material.WORKBENCH, "&bГотовые наборы", new String[0]))).add(this.bronze(32), ItemPackage.ITEM_LVL_1.clone()).add(this.bronze(64), ItemPackage.ITEM_LVL_2.clone()).add(this.iron(9), ItemPackage.ITEM_LVL_3.clone()).add(this.iron(18), ItemPackage.ITEM_LVL_4.clone()));
+      this.shops.add((new ShopMenu.Shop(Items.name(Material.BLAZE_ROD, "&bФинтифлюшки", new String[0]))).add(this.iron(1), BridgeBuilder.ITEM_STAIR_BRIDGE.clone()).add(this.iron(1), BridgeBuilder.ITEM_FLAT_BRIDGE.clone()).add(this.iron(3), WarpPowder.ITEM.clone()).add(this.iron(10), Items.name(Material.COMPASS, "&eGPS трекер", new String[]{"&7Укажет вам на ближайшего врага", "VimeWorld.ru"})).add(this.iron(14), RescuePlatform.ITEM.clone()).add(this.gold(2), Trap.ITEM.clone()));
+      this.shops.add((new ShopMenu.Shop(Items.name(Material.GOLD_INGOT, "&bОбмен валют", new String[0]))).add(this.bronze(64), this.iron(1)).add(this.iron(14), this.gold(1)).add(this.gold(1), this.iron(7)).add(this.iron(1), this.bronze(32)));
+   }
+}

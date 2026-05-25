@@ -1,0 +1,5 @@
+name: MiniDotBukkit
+main: net.xtrafrancyz.bukkit.minidot.MiniDot
+author: xtrafrancyz
+version: 0.4
+depend: [VimeNetwork]

@@ -1,0 +1,62 @@
+name: VimeNetwork
+author: xtrafrancyz
+website: http://xtrafrancyz.net
+version: 1.1
+loadbefore: [Essentials]
+depend: [Texteria]
+
+main: net.xtrafrancyz.VimeNetwork.VNPlugin
+
+commands:
+  msg:
+    aliases: [w, m, t, tell, whisper, pm, лс, пм]
+  reply:
+    aliases: [r, р, ответ]
+  ignore:
+    aliases: [игнор]
+  unignore:
+    aliases: [анигнор]
+  me:
+    aliases: [info, я]
+  help:
+    aliases: [помощь, хелп]
+  ban:
+    aliases: [бан]
+  unban:
+    aliases: [разбан, анбан]
+  mute:
+    aliases: [мут]
+  unmute:
+    aliases: [размут]
+  kick:
+    aliases: [кик]
+  gamemode:
+    aliases: [gm]
+  gms:
+  gmc:
+  gma:
+  tp:
+  stp:
+  etp:
+  find:
+  alert:
+  vanish:
+  prefix:
+  speed:
+  hub:
+    aliases: [lobby, хаб, лобби, лоби]
+  vimeworld:
+    aliases: [vimenetwork, vime, vn, vw]
+  coins:
+  worldspawn:
+  stream:
+    aliases: [стрим]
+  streams:
+    aliases: [стримы]
+  party:
+    aliases: [p, пати, группа]
+  friend:
+    aliases: [friends, f, друг, друзья, ф]
+  api:
+  report:
+  reports:

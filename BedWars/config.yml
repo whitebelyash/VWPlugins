@@ -1,0 +1,67 @@
+name: Бутерброд
+world: world
+lobby: 0, 100, 0
+teamPlayers: 2
+type: NORMAL
+
+leaderboard:
+  enabled: true
+  location: -3, 56, -19
+  rotation: 0, 305, 0
+  scale: 2.3
+
+parkour:
+  enabled: true
+  sign: -24, 70, -10
+
+lobby-drop:
+  bronze: 0, 50, 0
+  iron:  0, 50, 0
+  gold:  0, 50, 0
+
+#Высота, на которой нужно спавнить игрока после того как он упал спекторасом
+respawnY: 60
+
+#Частота появления ресов в тиках
+#каждую секунду
+bronze-frequency: 20
+#раз в 15 секунд
+iron-frequency: 300
+#раз в 45 секунд
+gold-frequency: 900
+gold-spawns:
+  - -2, 52, -2
+
+#Настройка команд
+teams:
+  red:
+    names: Красная, Красную, Красные
+    color: RED
+    wool: 14
+    spawns:
+      - -20, 50, 0
+    bed:
+      - -96, 66, 217
+      - -95, 66, 217
+    villagers:
+      - -24, 52, -2
+    bronze-spawns:
+      - -24, 52, -2
+    iron-spawns:
+      - -24, 52, -2
+
+  yellow:
+    names: Желтая, Желтую, Желтые
+    color: YELLOW
+    wool: 4
+    spawns:
+      - 95, 66.5, 220, -258.6, 1.5
+    bed:
+      - -96, 66, 217
+      - -95, 66, 217
+    villagers:
+      - -111.5, 65.5, 214.5
+    bronze-spawns:
+      - -103.5, 65.5, 208.5
+    iron-spawns:
+      - -94.5, 75, 187.5

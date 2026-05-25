@@ -1,0 +1,11 @@
+name: GameReloader
+author: xtrafrancyz
+website: http://xtrafrancyz.net
+version: 0.1
+depend: [VimeNetwork]
+
+main: net.xtrafrancyz.GameReloader.GameReloader
+
+commands:
+  gamereloader:
+    aliases: [gr]

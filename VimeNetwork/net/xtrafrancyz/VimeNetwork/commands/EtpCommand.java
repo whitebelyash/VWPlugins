@@ -1,0 +1,79 @@
+package net.xtrafrancyz.VimeNetwork.commands;
+
+import net.xtrafrancyz.Core.CoreByteMap;
+import net.xtrafrancyz.Core.network.packet.Packet1PlayerInfo;
+import net.xtrafrancyz.Core.network.packet.Packet200GetServersInfo;
+import net.xtrafrancyz.Core.network.packet.Packet201ServersInfo;
+import net.xtrafrancyz.Core.network.packet.Packet202GetPlayerInfo;
+import net.xtrafrancyz.VimeNetwork.VNPlugin;
+import net.xtrafrancyz.VimeNetwork.api.Lobby;
+import net.xtrafrancyz.VimeNetwork.api.VimeNetwork;
+import net.xtrafrancyz.VimeNetwork.api.player.Rank;
+import net.xtrafrancyz.VimeNetwork.api.util.U;
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+public class EtpCommand implements CommandExecutor {
+   public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+      if (!VimeNetwork.hasRank(sender, Rank.WARDEN, true)) {
+         return true;
+      } else if (args.length == 0) {
+         U.msg(sender, "&cИспользование:", "&e/" + label + " &7<игрок>&f: Телепортация к игроку на любом сервере");
+         return true;
+      } else {
+         String target = args[0];
+         Player targetPlayer = Bukkit.getPlayerExact(args[0]);
+         if (targetPlayer == null) {
+            VimeNetwork.core().sendPacket(new Packet202GetPlayerInfo(target, 8), (packet0) -> {
+               if (packet0.getId() == 1) {
+                  Packet1PlayerInfo packet = (Packet1PlayerInfo)packet0;
+                  if (packet.bukkit != null) {
+                     tpToServerNPlayer(sender, packet.bukkit, target);
+                     return;
+                  }
+               }
+
+               U.msg(sender, "&cИгрок &f" + target + "&c не найден");
+            }, 400L, () -> U.msg(sender, "&cОшибка связи с главным сервером"));
+         } else {
+            U.msg(sender, "&aИгрок находится на вашем сервере");
+            Player player = (Player)sender;
+            VNPlugin.instance().vanishCommand.enableVanish(player);
+            player.teleport(targetPlayer);
+         }
+
+         return false;
+      }
+   }
+
+   public static void tpToServerNPlayer(CommandSender sender, String server, String player) {
+      if (server.equals(VimeNetwork.lobby().getServerId())) {
+         ((Player)sender).teleport(Bukkit.getPlayerExact(player));
+      } else if (!StpCommand.ALLOWED_SERVER_TYPES.contains(server.split("_")[0])) {
+         U.msg(sender, "&cВы не можете телепортироваться на сервер &f" + server + "&c. В доступе отказано");
+      } else {
+         VimeNetwork.core().sendPacket(new Packet200GetServersInfo((byte)2, new String[]{server}), (packet0) -> {
+            Packet201ServersInfo packet = (Packet201ServersInfo)packet0;
+            if (packet.servers.isEmpty()) {
+               U.msg(sender, "&cСервер &f" + server + "&c не найден");
+            } else {
+               switch (Lobby.State.byId(((Packet201ServersInfo.Data)packet.servers.get(0)).state)) {
+                  case DENY_ALL:
+                  case OFFLINE:
+                     U.msg(sender, "&cСервер &f" + server + "&c в данный момент закрыт для входа");
+                     return;
+                  default:
+                     U.msg(sender, "&aТелепортация на сервер &f" + server);
+                     CoreByteMap switchData = new CoreByteMap();
+                     switchData.put("teleportToPlayer", player);
+                     VimeNetwork.toServer(server, (Player)sender, switchData);
+               }
+            }
+
+         }, 400L, () -> U.msg(sender, "&cСервер отвечает слишком долго. Какие-то проблемы..."));
+      }
+   }
+}
