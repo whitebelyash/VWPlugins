@@ -1,0 +1,14 @@
+name: SkyWars
+main: net.xtrafrancyz.SkyWars.SkyWars
+author: xtrafrancyz
+website: http://xtrafrancyz.net
+version: 0.1
+
+depend: [Texteria, VimeNetwork, GameReloader]
+
+commands:
+  skywars:
+    description: Служебные команды, доступные только для администратора
+    aliases: [sw]
+  stats:
+    description: Статистика
