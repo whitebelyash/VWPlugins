@@ -1,0 +1,12 @@
+name: ClashPoint
+main: net.xtrafrancyz.ClashPoint.ClashPoint
+version: 0.2
+author: xtrafrancyz, yishazu
+website: http://vimeworld.ru
+
+depend: [Texteria, VimeNetwork, GameReloader]
+
+commands:
+  clashpoint:
+    aliases: [cp]
+  stats:

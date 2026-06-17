@@ -1,0 +1,52 @@
+name: Бутерброд
+lobby: 0, 100, 0
+teamPlayers: 2
+
+leaderboard:
+  enabled: true
+  location: -3, 56, -19
+  rotation: 0, 305, 0
+  scale: 2.3
+
+parkour:
+  enabled: true
+  sign: -24, 70, -10
+
+#Высота, на которой нужно спавнить игрока после того как он упал спекторасом
+respawnY: 60
+
+#Частота (пере-)активации точек ресурсов
+#раз в 2 минуты
+resource-points-activation-frequency: 2400
+
+#Частота появления ресов в тиках
+#раз в 15 секунд
+iron-frequency: 300
+#раз в 45 секунд
+gold-frequency: 900
+gold-spawns:
+  - -2, 52, -2
+
+#Настройка команд
+teams:
+  red:
+    names: Красная, Красную, Красные
+    color: RED
+    wool: 14
+    spawns:
+      - -20, 50, 0
+    resource-points:
+      - -96, 66, 217
+    traders:
+      - -24, 52, -2
+
+  yellow:
+    names: Желтая, Желтую, Желтые
+    color: YELLOW
+    wool: 4
+    spawns:
+      - 95, 66.5, 220, -258.6, 1.5
+    resource-points:
+      - -96, 66, 217
+    traders:
+      - -111.5, 65.5, 214.5
