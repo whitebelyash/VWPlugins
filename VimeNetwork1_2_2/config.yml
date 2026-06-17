@@ -1,0 +1,26 @@
+mysql:
+  host: localhost
+  port: 3306
+  database: minecraft
+  username: root
+  password: ''
+
+# Настройки подключения к ядру
+core:
+  enabled: false
+  host: localhost
+  port: 25431
+
+# Проверка обновлений в папке /home/vimeworld/update
+updater:
+  enabled: false
+
+# Обновление информации о сервере
+lobby:
+  enabled: false
+  serverHost: localhost
+  serverId: TEST_1
+
+# Переключалки
+dev: false
+tournament: false

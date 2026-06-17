@@ -1,0 +1,58 @@
+/*
+ * Decompiled with CFR 0.152.
+ */
+package org.apache.mina.filter.util;
+
+import org.apache.mina.core.filterchain.IoFilter;
+import org.apache.mina.core.filterchain.IoFilterAdapter;
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.core.write.WriteRequest;
+import org.apache.mina.core.write.WriteRequestWrapper;
+
+public abstract class WriteRequestFilter
+extends IoFilterAdapter {
+    @Override
+    public void filterWrite(IoFilter.NextFilter nextFilter, IoSession session, WriteRequest writeRequest) throws Exception {
+        Object filteredMessage = this.doFilterWrite(nextFilter, session, writeRequest);
+        if (filteredMessage != null && filteredMessage != writeRequest.getMessage()) {
+            nextFilter.filterWrite(session, new FilteredWriteRequest(filteredMessage, writeRequest));
+        } else {
+            nextFilter.filterWrite(session, writeRequest);
+        }
+    }
+
+    @Override
+    public void messageSent(IoFilter.NextFilter nextFilter, IoSession session, WriteRequest writeRequest) throws Exception {
+        FilteredWriteRequest req;
+        if (writeRequest instanceof FilteredWriteRequest && (req = (FilteredWriteRequest)writeRequest).getParent() == this) {
+            nextFilter.messageSent(session, req.getParentRequest());
+            return;
+        }
+        nextFilter.messageSent(session, writeRequest);
+    }
+
+    protected abstract Object doFilterWrite(IoFilter.NextFilter var1, IoSession var2, WriteRequest var3) throws Exception;
+
+    private class FilteredWriteRequest
+    extends WriteRequestWrapper {
+        private final Object filteredMessage;
+
+        public FilteredWriteRequest(Object filteredMessage, WriteRequest writeRequest) {
+            super(writeRequest);
+            if (filteredMessage == null) {
+                throw new IllegalArgumentException("filteredMessage");
+            }
+            this.filteredMessage = filteredMessage;
+        }
+
+        public WriteRequestFilter getParent() {
+            return WriteRequestFilter.this;
+        }
+
+        @Override
+        public Object getMessage() {
+            return this.filteredMessage;
+        }
+    }
+}
+
